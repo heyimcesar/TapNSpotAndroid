@@ -2,7 +2,7 @@
     <string name="app_name">TapNSpot</string>
 
     <!-- Strings related to login -->
-    <string name="login_hello_message_1">Hello</string>
+    <string name="login_hello_message_1">Hello!</string>
     <string name="login_hello_message_2">Welcome to TapNSpot</string>
 
 
