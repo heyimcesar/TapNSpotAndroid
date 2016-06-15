@@ -1,11 +1,14 @@
 <resources>
-
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+    <style name="TapNSpotTheme" parent="@android:style/Theme.Material">
+        <item name="android:colorPrimary">@color/light_blue</item>
+        <item name="android:colorPrimaryDark">@color/dark_blue</item>
     </style>
-
+    <style name="SplashScreenTheme" parent="@android:style/Theme.Material.Light">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+    <style name="LoginTheme" parent="TapNSpotTheme">
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
 </resources>
