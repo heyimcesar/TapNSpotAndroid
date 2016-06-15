@@ -12,6 +12,7 @@ import com.facebook.login.LoginManager;
 
 public class SplashScreenActivity extends Activity {
     private int SPLASH_TIME_OUT = 2000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +29,7 @@ public class SplashScreenActivity extends Activity {
             {
                 // Login check (condition: !userIsLogged)
                 Intent loginIntent;
-                if(Profile.getCurrentProfile() == null){
+                if(Profile.getCurrentProfile().equals(null)){
                     loginIntent = new Intent(SplashScreenActivity.this,LoginActivity.class);
                 }else{
                     loginIntent = new Intent(SplashScreenActivity.this,MainActivity.class);
@@ -40,4 +41,6 @@ public class SplashScreenActivity extends Activity {
             }
         }, SPLASH_TIME_OUT);
     }
+
+
 }

@@ -80,6 +80,10 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!FacebookSdk.isInitialized())
+        {
+            FacebookSdk.sdkInitialize(getApplicationContext());
+        }
         setContentView(R.layout.activity_login);
 
         // Creates callbackManager to handle Facebook callbacks.
@@ -170,8 +174,9 @@ public class LoginActivity extends Activity {
         Toast.makeText(getApplicationContext(), "Welcome " + facebookUser.getUserFirstName() + "->" + facebookUser.getUserId() + "; Email: " + facebookUser.getUserEmail(), Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        finish();
         startActivity(intent);
+        LoginActivity.this.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        finish();
 
     }
 }

@@ -1,5 +1,7 @@
 package com.bluephoenixteam.tapnspot;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by BluePhoenixTeam on 6/15/2016.
  */
@@ -9,6 +11,14 @@ public class FacebookUser
     private String userLastName;
     private String userFirstName;
     private String userEmail;
+    private Bitmap userProfilePic;
+
+    public FacebookUser(String userId, String userLastName, String userFirstName)
+    {
+        this.userId = userId;
+        this.userLastName = userLastName;
+        this.userFirstName = userFirstName;
+    }
 
     public FacebookUser() {}
 
@@ -32,6 +42,10 @@ public class FacebookUser
         this.userEmail = userEmail;
     }
 
+    public void setUserProfilePic(Bitmap userProfilePic)
+    {
+        this.userProfilePic = userProfilePic;
+    }
 
     public String getUserId()
     {
@@ -51,5 +65,10 @@ public class FacebookUser
     public String getUserEmail()
     {
         return userEmail;
+    }
+
+    public Bitmap getUserProfilePic()
+    {
+        return userProfilePic;
     }
 }

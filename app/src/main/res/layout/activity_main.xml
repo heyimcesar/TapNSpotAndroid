@@ -9,4 +9,42 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.bluephoenixteam.tapnspot.MainActivity">
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Log Out"
+        android:id="@+id/button_log_out"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:onClick="logOutBtnClicked" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview_user_name"
+        android:layout_below="@+id/imageview_user_pic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview_user_id"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textview_user_email"
+        android:layout_below="@+id/textview_user_id"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="51dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageview_user_pic"
+        android:layout_below="@+id/button_log_out"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
