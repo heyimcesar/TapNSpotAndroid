@@ -23,8 +23,10 @@ public class SplashScreenActivity extends Activity {
                 }else{
                     loginIntent = new Intent(SplashScreenActivity.this,MainActivity.class);
                 }
-                startActivity(loginIntent);
-                finish();
+                loginIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                SplashScreenActivity.this.startActivity(loginIntent);
+                SplashScreenActivity.this.overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                SplashScreenActivity.this.finish();
             }
         }, SPLASH_TIME_OUT);
     }
