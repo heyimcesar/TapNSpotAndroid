@@ -80,8 +80,7 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Initialize Facebook SDK.
-        FacebookSdk.sdkInitialize(getApplicationContext());
+
         setContentView(R.layout.activity_login);
 
         // Creates callbackManager to handle Facebook callbacks.
@@ -156,7 +155,8 @@ public class LoginActivity extends Activity {
                             facebookUser.setUserEmail(fbUserEmail);
 
                             // Only pass to next activity when email has been retrieved and saved.
-                            setToastAndMainActivity();
+                            loginComplete();
+
                         }
                         catch (JSONException e)
                         {
@@ -167,15 +167,12 @@ public class LoginActivity extends Activity {
         ).executeAsync();
     }
 
-    private void setToastAndMainActivity()
-    {
-        Toast.makeText(getApplicationContext(), "Welcome " + facebookUser.getUserFirstName() + "->" + facebookUser.getUserId() + "; Email: " + facebookUser.getUserEmail(), Toast.LENGTH_LONG).show();
-
-        /* Uncomment this when MainActivity is finished
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+    private void loginComplete() {
+        Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
+        mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(mainActivityIntent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();
-        startActivity(intent);
-        */
     }
 }
 

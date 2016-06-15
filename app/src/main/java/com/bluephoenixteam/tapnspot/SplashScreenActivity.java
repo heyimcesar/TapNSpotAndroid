@@ -6,22 +6,32 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+
 public class SplashScreenActivity extends Activity {
-    private int SPLASH_TIME_OUT = 2000;
+    private int SPLASH_TIME_OUT = 1500;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Initialize Facebook SDK.
+        FacebookSdk.sdkInitialize(getApplicationContext());
+
         setContentView(R.layout.activity_splash_screen);
+
+        // Hide navigation in order to make it fullscreen
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
+        // Handler with SPLASH_TIME_OUT delay in ms in order to wait in the splash screen
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Login check (condition: !userIsLogged)
                 Intent loginIntent;
-                if(false){
-                    loginIntent = new Intent(SplashScreenActivity.this,LoginActivity.class);
+                if(Profile.getCurrentProfile().equals(null)){
+                    loginIntent = new Intent(getApplicationContext(),LoginActivity.class);
                 }else{
-                    loginIntent = new Intent(SplashScreenActivity.this,MainActivity.class);
+                    loginIntent = new Intent(getApplicationContext(),MainActivity.class);
                 }
                 loginIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 SplashScreenActivity.this.startActivity(loginIntent);
