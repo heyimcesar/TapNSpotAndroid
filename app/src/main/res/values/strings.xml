@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">TapNSpot</string>
     <string name="company_name">Blue Phoenix Team</string>
+    <string name="facebook_app_id">1217088094976599</string>
 
     <!-- Strings related to login -->
     <string name="login_hello_message_1">Hello!</string>
