@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 
 import com.facebook.FacebookSdk;
@@ -30,7 +31,7 @@ public class SplashScreenActivity extends Activity {
             @Override
             public void run() {
                 Intent loginIntent;
-                if(Profile.getCurrentProfile().equals(null)){
+                if(Profile.getCurrentProfile() == null){
                     loginIntent = new Intent(getApplicationContext(),LoginActivity.class);
                 }else{
                     loginIntent = new Intent(getApplicationContext(),MainActivity.class);
