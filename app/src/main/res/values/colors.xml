@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="light_blue">#FF4285F4</color>
-    <color name="dark_blue">#FF3367D6</color>
+    <color name="darkPrimaryColor">#303F9F</color>
+    <color name="primaryColor">#3F51B5</color>
+    <color name="lightPrimaryColor">#C5CAE9</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="accentColor">#FF5252</color>
+    <color name="primaryText">#212121</color>
+    <color name="secondaryText">#727272</color>
+    <color name="dividerColor">#B6B6B6</color>
+
+
+    <color name="black_faded">#B2000000</color>
+    <color name="white_tint">#fafafa</color>
 </resources>
