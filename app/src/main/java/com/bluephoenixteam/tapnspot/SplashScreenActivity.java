@@ -8,9 +8,11 @@ import android.view.View;
 
 import com.facebook.FacebookSdk;
 import com.facebook.Profile;
+import com.facebook.login.LoginManager;
 
 public class SplashScreenActivity extends Activity {
     private int SPLASH_TIME_OUT = 1500;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -80,7 +80,10 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if (!FacebookSdk.isInitialized())
+        {
+            FacebookSdk.sdkInitialize(getApplicationContext());
+        }
         setContentView(R.layout.activity_login);
 
         // Creates callbackManager to handle Facebook callbacks.
@@ -173,6 +176,6 @@ public class LoginActivity extends Activity {
         startActivity(mainActivityIntent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();
-    }
+	}
 }
 
