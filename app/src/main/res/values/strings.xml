@@ -9,4 +9,5 @@
 
     <!-- Strings related to menu -->
     <string name="menu_logout_button_text">Logout</string>
+    <string name="title_activity_maps">Map</string>
 </resources>
