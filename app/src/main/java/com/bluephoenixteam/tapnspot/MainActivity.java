@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
@@ -46,7 +47,7 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, InterstitialAdListener {
 
     FacebookUser facebookUser;
-    private SupportMapFragment map;
+    private SupportMapFragment mapFragment;
     private InterstitialAd interstitialAd;
     private final String INTERSTITIAL_AD_PLACEMENT_ID = "1217088094976599_1224872034198205";
 
@@ -112,8 +113,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         setContentView(R.layout.activity_main);
 
-        map = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.location_map);
-        map.getMapAsync(this);
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.location_map);
+            mapFragment.getMapAsync(this);
+        } else {
+            // Show rationale and request permission.
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION, android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
+            }
+        }
 
         loadInterstitial();
         setUserData();
@@ -196,6 +205,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap map) {
         LatLng arturoHome = new LatLng(20.746118, -103.437228);
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            map.setMyLocationEnabled(true);
+        }
+        map.getUiSettings().setMyLocationButtonEnabled(true);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(arturoHome, 16));
         map.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)).position(arturoHome).draggable(true));
         map.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
@@ -214,17 +227,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 Toast.makeText(getApplicationContext(),marker.getPosition().toString(),Toast.LENGTH_SHORT).show();
             }
         });
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        map.setMyLocationEnabled(true);
     }
 
     private void setInfoViews()
