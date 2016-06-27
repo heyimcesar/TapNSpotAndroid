@@ -2,6 +2,7 @@ package com.bluephoenixteam.tapnspot;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -94,7 +95,7 @@ public class LoginActivity extends Activity {
         callbackManager = CallbackManager.Factory.create();
 
         // Creates current FacebookUser.
-        facebookUser = new FacebookUser();
+        facebookUser = new FacebookUser(this);
 
         // Sets up login request permissions for the user.
         LoginButton facebookLoginBtn = (LoginButton) findViewById(R.id.facebook_login_button);
@@ -175,6 +176,7 @@ public class LoginActivity extends Activity {
     }
 
     private void loginComplete() {
+        facebookUser.testGetFacebookUserStuff();
         Intent mainActivityIntent = new Intent(getApplicationContext(), MainActivity.class);
         mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(mainActivityIntent);

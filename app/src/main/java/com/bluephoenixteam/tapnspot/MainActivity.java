@@ -1,6 +1,7 @@
 package com.bluephoenixteam.tapnspot;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,6 +20,11 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.HttpMethod;
 import com.facebook.Profile;
+import com.facebook.ads.Ad;
+import com.facebook.ads.AdError;
+import com.facebook.ads.AdSettings;
+import com.facebook.ads.InterstitialAd;
+import com.facebook.ads.InterstitialAdListener;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,10 +43,40 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, InterstitialAdListener {
 
     FacebookUser facebookUser;
     private SupportMapFragment map;
+    private InterstitialAd interstitialAd;
+    private final String INTERSTITIAL_AD_PLACEMENT_ID = "1217088094976599_1224872034198205";
+
+    // INTERSITIAL AD LISTENER METHODS
+    @Override
+    public void onInterstitialDisplayed(Ad ad) {
+        // Where relevant, use this function to pause your app's flow
+    }
+
+    @Override
+    public void onInterstitialDismissed(Ad ad) {
+        // Use this function to resume your app's flow
+    }
+
+    @Override
+    public void onError(Ad ad, AdError adError) {
+        // Ad failed to load
+    }
+
+    @Override
+    public void onAdLoaded(Ad ad) {
+        // Ad is loaded and ready to be displayed
+        // You can now display the full screen ad using this code:
+        interstitialAd.show();
+    }
+
+    @Override
+    public void onAdClicked(Ad ad) {
+        // Use this function as indication for a user's click on the ad.
+    }
 
     public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
         @Override
@@ -60,6 +96,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
     }
 
+    private void loadInterstitial() {
+        // Added Phone Hash For Testing Ads
+        AdSettings.addTestDevice("d3b498e395f8e6d3abf582e03daabcd2");
+        interstitialAd = new InterstitialAd(this, INTERSTITIAL_AD_PLACEMENT_ID);
+        interstitialAd.setAdListener(this);
+        interstitialAd.loadAd();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +115,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         map = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.location_map);
         map.getMapAsync(this);
 
+        loadInterstitial();
         setUserData();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (interstitialAd != null) {
+            interstitialAd.destroy();
+        }
+        super.onDestroy();
     }
 
     public void logOutBtnClicked(View view) {
@@ -82,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void setUserData() {
-        facebookUser = new FacebookUser(Profile.getCurrentProfile().getId(), Profile.getCurrentProfile().getLastName(), Profile.getCurrentProfile().getFirstName());
+        facebookUser = new FacebookUser(this, Profile.getCurrentProfile().getId(), Profile.getCurrentProfile().getLastName(), Profile.getCurrentProfile().getFirstName());
         retrieveFacebookUserData();
     }
 
@@ -111,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void retrieveUserProfilePic() {
+        facebookUser.testGetFacebookUserStuff();
         Bundle params = new Bundle();
         params.putString("type", "large");
         params.putBoolean("redirect", false);
@@ -138,6 +192,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
         ).executeAsync();
     }
+
     @Override
     public void onMapReady(GoogleMap map) {
         LatLng arturoHome = new LatLng(20.746118, -103.437228);
