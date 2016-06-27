@@ -82,13 +82,14 @@
         fab:fab_labelsPosition="left">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/accion_favorito"
+            android:id="@+id/action_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_colorNormal="?attr/colorPrimary"
-            fab:fab_icon="@drawable/ic_add_white_24dp"
+            fab:fab_icon="@drawable/ic_person_white_24dp"
             fab:fab_size="mini"
-            fab:fab_title="Favorito" />
+            fab:fab_title="@string/menu_profile_button_text"
+            android:onClick="profileBtnClicked"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/accion_buscar"

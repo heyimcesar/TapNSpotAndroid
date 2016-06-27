@@ -138,9 +138,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     public void logOutBtnClicked(View view) {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         LoginManager.getInstance().logOut();
         startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();
+    }
+    public void profileBtnClicked(View view){
+        Intent intent = new Intent(getApplicationContext(),ProfileActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     private void setUserData() {

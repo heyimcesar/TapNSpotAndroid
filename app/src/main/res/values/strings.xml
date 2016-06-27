@@ -9,5 +9,7 @@
 
     <!-- Strings related to menu -->
     <string name="menu_logout_button_text">Logout</string>
+    <string name="menu_profile_button_text">Profile</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_profile">ProfileActivity</string>
 </resources>
